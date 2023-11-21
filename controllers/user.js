@@ -138,6 +138,17 @@ const toggleFavoriteRecipes = async (req, res) => {
   }
 }
 
+const getAllFav = async (req, res) => {
+  const { email } = req.user
+  try {
+    const fav = await User.findOne({ email: email },{ favorites:1,_id:0})
+    console.log(fav)
+    res.json(fav)
+  } catch (error) {
+    res.json(error.message)
+  }
+}
+
 module.exports = {
   register,
   login,
@@ -145,4 +156,5 @@ module.exports = {
   resetPassword,
   getUserInfo,
   toggleFavoriteRecipes,
+  getAllFav
 }
